@@ -1,181 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>BABY ❤️ VIKAS</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Test ❤️</title>
 
 <style>
-body{
-margin:0;
-font-family:'Segoe UI',sans-serif;
-text-align:center;
-color:white;
-background: linear-gradient(180deg,#0f2027,#203a43,#2c5364);
-overflow:auto;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    color: white;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+    url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad');
+    background-size: cover;
+    background-attachment: fixed;
 }
 
-.section{
-min-height:100vh;
-display:none;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-padding:40px 20px;
-animation:fadeIn 1s ease;
+.section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-.active{
-display:flex;
+h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
 }
 
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(20px);}
-to{opacity:1; transform:translateY(0);}
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
 }
 
-h1{
-font-size:34px;
-text-shadow:0 0 15px #ff4d6d;
+.start-btn {
+    background: #ff4b5c;
+    color: white;
 }
 
-img{
-width:260px;
-border-radius:20px;
-border:4px solid white;
-box-shadow:0 0 30px rgba(255,255,255,0.9);
-margin-top:20px;
+.start-btn:hover {
+    background: #ff1e40;
+    transform: scale(1.1);
 }
 
-button{
-padding:14px 28px;
-margin:12px;
-border:none;
-border-radius:30px;
-background:#ff4d6d;
-color:white;
-font-weight:bold;
-font-size:16px;
-cursor:pointer;
-transition:0.3s;
+.answer-btn {
+    background: white;
+    color: black;
 }
 
-button:hover{
-transform:scale(1.1);
-background:#ff1e56;
+.answer-btn:hover {
+    transform: scale(1.1);
 }
 
-.heart,.snow{
-position:fixed;
-pointer-events:none;
-}
-
-.heart{
-color:red;
-animation:float 6s linear infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(100vh);opacity:1;}
-100%{transform:translateY(-10vh);opacity:0;}
-}
-
-.snow{
-color:white;
-font-size:14px;
-animation:snowfall linear infinite;
-}
-
-@keyframes snowfall{
-0%{transform:translateY(-10vh);}
-100%{transform:translateY(100vh);}
+#noBtn {
+    position: relative;
 }
 </style>
 </head>
 
 <body>
 
-<div class="section active" id="intro">
-<h1>👑 BABY & VIKAS 👑</h1>
-<p>Somewhere in London… under falling snow ❄️</p>
-<img src="IMG_5011.jpeg" alt="BABY & VIKAS">
-<button onclick="next('q1')">Start The Love Test ❤️</button>
+<div class="section" id="intro">
+    <h1>Welcome Aangi ❤️</h1>
+    <p>Ready to take the legendary love test?</p>
+    <button class="start-btn" onclick="startTest()">Start ❤️</button>
 </div>
 
-<div class="section" id="q1">
-<h2>Who is the most beautiful girl in this universe? 👑</h2>
-<button onclick="next('q2')">BABY 😍</button>
-<button onclick="next('q2')">Obviously BABY 💖</button>
-</div>
-
-<div class="section" id="q2">
-<h2>Who makes VIKAS the happiest man alive? 💕</h2>
-<button onclick="next('q3')">Only BABY 🥰</button>
-<button onclick="next('q3')">BABY Forever ❤️</button>
-</div>
-
-<div class="section" id="q3">
-<h2>If love had a face… whose would it be? ✨</h2>
-<button onclick="next('final')">Still BABY 😌</button>
-<button onclick="next('final')">BABY Always 💞</button>
-</div>
-
-<div class="section" id="final">
-<h2>Under this snowy London sky… ❄️</h2>
-<h1>BABY, will you be VIKAS's forever? 💍</h1>
-<button onclick="yes()">YES FOREVER 💖</button>
-<button onmouseover="run(this)">NO 😜</button>
+<div class="section" id="quiz" style="display:none;">
+    <h1 id="question">Question Here</h1>
+    <div id="answers"></div>
 </div>
 
 <script>
+const questions = [
+{
+    question: "Who loves you the most in this universe?",
+    answers: ["Vikas 😎", "Obviously Vikas ❤️"]
+},
+{
+    question: "Who makes your life dramatic but cute?",
+    answers: ["Vikas 😂", "Only Vikas 😌"]
+},
+{
+    question: "Who plans legendary surprises?",
+    answers: ["Vikas the Legend 🔥", "Your Future Husband 😏"]
+},
+{
+    question: "Final Question...",
+    answers: []
+}
+];
 
-function next(id){
-document.querySelectorAll('.section').forEach(sec=>{
-sec.classList.remove('active');
-});
-document.getElementById(id).classList.add('active');
-window.scrollTo(0,0);
+let currentQuestion = 0;
+
+function startTest() {
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("quiz").style.display = "flex";
+    showQuestion();
 }
 
-function yes(){
-document.body.innerHTML=`
-<div class="section active">
-<h1>💍 SHE SAID YES 💍</h1>
-<h2>BABY ❤️ VIKAS — Forever Begins Now</h2>
-<p>In every lifetime… in every city…</p>
-<p>It will always be you and me.</p>
-<h2>👑 My Queen. My BABY. My Everything. 👑</h2>
-</div>
-`;
+function showQuestion() {
+    if (currentQuestion < questions.length - 1) {
+        document.getElementById("question").innerText = questions[currentQuestion].question;
+        const answersDiv = document.getElementById("answers");
+        answersDiv.innerHTML = "";
+
+        questions[currentQuestion].answers.forEach(answer => {
+            const btn = document.createElement("button");
+            btn.classList.add("answer-btn");
+            btn.innerText = answer;
+            btn.onclick = nextQuestion;
+            answersDiv.appendChild(btn);
+        });
+
+    } else {
+        showProposal();
+    }
 }
 
-function run(btn){
-btn.style.position="relative";
-btn.style.left=Math.random()*200-100+"px";
-btn.style.top=Math.random()*100-50+"px";
+function nextQuestion() {
+    currentQuestion++;
+    showQuestion();
 }
 
-function createHeart(){
-const heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=Math.random()*20+15+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-}
-setInterval(createHeart,400);
+function showProposal() {
+    document.getElementById("question").innerText = "Aangi ❤️\nWill you be my Valentine?";
+    const answersDiv = document.getElementById("answers");
+    answersDiv.innerHTML = "";
 
-function createSnow(){
-const snow=document.createElement("div");
-snow.className="snow";
-snow.innerHTML="❄";
-snow.style.left=Math.random()*100+"vw";
-snow.style.animationDuration=Math.random()*5+3+"s";
-document.body.appendChild(snow);
-setTimeout(()=>snow.remove(),8000);
-}
-setInterval(createSnow,250);
+    const yesBtn = document.createElement("button");
+    yesBtn.innerText = "YES ❤️";
+    yesBtn.classList.add("start-btn");
+    yesBtn.onclick = function() {
+        document.getElementById("question").innerText = "YAYYYYY ❤️🔥\nYou are officially mine forever 😌";
+        answersDiv.innerHTML = "";
+    };
 
+    const noBtn = document.createElement("button");
+    noBtn.innerText = "NO 🙄";
+    noBtn.id = "noBtn";
+    noBtn.classList.add("answer-btn");
+
+    noBtn.onmouseover = function() {
+        noBtn.style.position = "absolute";
+        noBtn.style.top = Math.random() * window.innerHeight + "px";
+        noBtn.style.left = Math.random() * window.innerWidth + "px";
+    };
+
+    answersDiv.appendChild(yesBtn);
+    answersDiv.appendChild(noBtn);
+}
 </script>
 
 </body>
