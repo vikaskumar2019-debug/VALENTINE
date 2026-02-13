@@ -7,54 +7,69 @@
 <style>
 body{
 margin:0;
-font-family: 'Segoe UI', sans-serif;
+font-family:'Segoe UI',sans-serif;
 text-align:center;
 color:white;
 background: linear-gradient(180deg,#0f2027,#203a43,#2c5364);
-overflow:hidden;
+overflow:auto;
 }
 
-.container{
-padding:20px;
-margin-top:30px;
+.section{
+min-height:100vh;
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:40px 20px;
+animation:fadeIn 1s ease;
+}
+
+.active{
+display:flex;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
 }
 
 h1{
 font-size:34px;
-letter-spacing:2px;
-}
-
-h2{
-font-weight:normal;
+text-shadow:0 0 15px #ff4d6d;
 }
 
 img{
 width:260px;
 border-radius:20px;
 border:4px solid white;
-box-shadow:0 0 25px rgba(255,255,255,0.8);
+box-shadow:0 0 30px rgba(255,255,255,0.9);
 margin-top:20px;
 }
 
 button{
-padding:12px 25px;
-margin:10px;
+padding:14px 28px;
+margin:12px;
 border:none;
-border-radius:25px;
+border-radius:30px;
 background:#ff4d6d;
 color:white;
 font-weight:bold;
 font-size:16px;
 cursor:pointer;
+transition:0.3s;
 }
 
 button:hover{
 transform:scale(1.1);
-transition:0.3s;
+background:#ff1e56;
+}
+
+.heart,.snow{
+position:fixed;
+pointer-events:none;
 }
 
 .heart{
-position:fixed;
 color:red;
 animation:float 6s linear infinite;
 }
@@ -65,7 +80,6 @@ animation:float 6s linear infinite;
 }
 
 .snow{
-position:fixed;
 color:white;
 font-size:14px;
 animation:snowfall linear infinite;
@@ -80,56 +94,89 @@ animation:snowfall linear infinite;
 
 <body>
 
-<div class="container" id="main">
-
+<div class="section active" id="intro">
 <h1>👑 BABY & VIKAS 👑</h1>
-<h2>Somewhere in London… under falling snow ❄️</h2>
-
+<p>Somewhere in London… under falling snow ❄️</p>
 <img src="IMG_5011.jpeg" alt="BABY & VIKAS">
+<button onclick="next('q1')">Start The Love Test ❤️</button>
+</div>
 
-<h3>Princess BABY… are you ready? 😌</h3>
+<div class="section" id="q1">
+<h2>Who is the most beautiful girl in this universe? 👑</h2>
+<button onclick="next('q2')">BABY 😍</button>
+<button onclick="next('q2')">Obviously BABY 💖</button>
+</div>
 
-<button onclick="nextQ()">Start The Love Test ❤️</button>
+<div class="section" id="q2">
+<h2>Who makes VIKAS the happiest man alive? 💕</h2>
+<button onclick="next('q3')">Only BABY 🥰</button>
+<button onclick="next('q3')">BABY Forever ❤️</button>
+</div>
 
+<div class="section" id="q3">
+<h2>If love had a face… whose would it be? ✨</h2>
+<button onclick="next('final')">Still BABY 😌</button>
+<button onclick="next('final')">BABY Always 💞</button>
+</div>
+
+<div class="section" id="final">
+<h2>Under this snowy London sky… ❄️</h2>
+<h1>BABY, will you be VIKAS's forever? 💍</h1>
+<button onclick="yes()">YES FOREVER 💖</button>
+<button onmouseover="run(this)">NO 😜</button>
 </div>
 
 <script>
 
-let step=0;
+function next(id){
+document.querySelectorAll('.section').forEach(sec=>{
+sec.classList.remove('active');
+});
+document.getElementById(id).classList.add('active');
+window.scrollTo(0,0);
+}
 
-function nextQ(){
-step++;
-const main=document.getElementById("main");
-
-if(step==1){
-main.innerHTML=`
-<h2>Question 1 💭</h2>
-<p>Who is the most beautiful girl in this universe?</p>
-<button onclick="nextQ()">BABY 👑</button>
-<button onclick="nextQ()">Obviously BABY 😌</button>
+function yes(){
+document.body.innerHTML=`
+<div class="section active">
+<h1>💍 SHE SAID YES 💍</h1>
+<h2>BABY ❤️ VIKAS — Forever Begins Now</h2>
+<p>In every lifetime… in every city…</p>
+<p>It will always be you and me.</p>
+<h2>👑 My Queen. My BABY. My Everything. 👑</h2>
+</div>
 `;
 }
 
-else if(step==2){
-main.innerHTML=`
-<h2>Question 2 💕</h2>
-<p>Who makes VIKAS the happiest man alive?</p>
-<button onclick="nextQ()">BABY ❤️</button>
-<button onclick="nextQ()">Only BABY 🥰</button>
-`;
+function run(btn){
+btn.style.position="relative";
+btn.style.left=Math.random()*200-100+"px";
+btn.style.top=Math.random()*100-50+"px";
 }
 
-else if(step==3){
-main.innerHTML=`
-<h2>Question 3 ✨</h2>
-<p>If love had a face… whose would it be?</p>
-<button onclick="nextQ()">BABY 😍</button>
-<button onclick="nextQ()">Still BABY 💖</button>
-`;
+function createHeart(){
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=Math.random()*20+15+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
 }
+setInterval(createHeart,400);
 
-else if(step==4){
-main.innerHTML=`
-<h2>Final Question 💍</h2>
-<p>Under this snowy London sky…</p>
-<h3>BABY, will you be VIKAS's forever? ♾️
+function createSnow(){
+const snow=document.createElement("div");
+snow.className="snow";
+snow.innerHTML="❄";
+snow.style.left=Math.random()*100+"vw";
+snow.style.animationDuration=Math.random()*5+3+"s";
+document.body.appendChild(snow);
+setTimeout(()=>snow.remove(),8000);
+}
+setInterval(createSnow,250);
+
+</script>
+
+</body>
+</html>
