@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For V’s BABY ❤️</title>
+
+<style>
+body{
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
+  text-align:center;
+}
+.box{
+  background:white;
+  padding:30px;
+  border-radius:18px;
+  width:90%;
+  max-width:420px;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:10px;
+}
+button{
+  background:#ff4b5c;
+  color:white;
+  border:none;
+  padding:10px 22px;
+  margin:10px;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+}
+.no{
+  background:#aaa;
+  position:relative;
+}
+.small{
+  font-size:14px;
+  color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+</audio>
+
+<div class="box" id="box">
+  <!-- OPTIONAL PHOTO -->
+  <img src="https://i.imgur.com/8Km9tLL.jpg" alt="V’s BABY">
+  <h2>Hey V’s BABY ❤️</h2>
+  <p>This is A’S baby… and I have something special to ask you 🥹</p>
+  <button onclick="next()">Continue 💌</button>
+</div>
+
+<script>
+let step=0;
+
+function next(){
+  const b=document.getElementById("box");
+  step++;
+
+  if(step===1){
+    b.innerHTML=`<h2>Question 1 💭</h2>
+    <p>Do you know you’re the best thing that ever happened to A’S baby?</p>
+    <button onclick="next()">Next ❤️</button>`;
+  }
+  else if(step===2){
+    b.innerHTML=`<h2>Question 2 😊</h2>
+    <p>Does your heart smile whenever you think about us?</p>
+    <button onclick="next()">Next 💕</button>`;
+  }
+  else if(step===3){
+    b.innerHTML=`<h2>Question 3 💖</h2>
+    <p>Do you feel loved, safe and happy with A’S baby?</p>
+    <button onclick="next()">Next 😌</button>`;
+  }
+  else if(step===4){
+    document.getElementById("music").play();
+    b.innerHTML=`<h2>One Last Question ❤️</h2>
+    <p class="small" id="countdown"></p>
+    <h3>Will you be my Valentine?</h3>
+    <button onclick="yes()">YES 😍</button>
+    <button class="no" onmouseover="run(this)" onclick="no()">NO 🙈</button>`;
+    startCountdown();
+  }
+}
+
+function run(btn){
+  btn.style.left=Math.random()*120-60+"px";
+  btn.style.top=Math.random()*60-30+"px";
+}
+
+function no(){
+  const b=document.getElementById("box");
+  b.innerHTML=`<h2>⏳ Processing…</h2><p>Please wait</p>`;
+  setTimeout(()=>{
+    b.innerHTML=`<h2>⚠️ ERROR ❌</h2>
+    <p><b>Action not allowed.</b></p>
+    <p>You are already<br><strong>A’S baby’s Valentine 💖</strong></p>
+    <p>No escape 😌🔒</p>`;
+  },2000);
+}
+
+function yes(){
+  document.getElementById("box").innerHTML=`
+    <h2>YAYYYY 💖🥹</h2>
+    <p>V’s BABY just made A’S baby the happiest person alive.</p>
+
+    <h3>💌 A Secret Letter 💌</h3>
+    <p>
+      No matter where life takes us,<br>
+      I choose you — every single day.<br>
+      You are my safe place, my madness,<br>
+      my forever.<br><br>
+      Love,<br>
+      A’S baby ❤️
+    </p>
+
+    <p class="small">Scan this if you ever miss me 😌</p>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ForeverYours">
+  `;
+}
+
+function startCountdown(){
+  const cd=document.getElementById("countdown");
+  const valentine=new Date("Feb 14, 2026 00:00:00").getTime();
+  setInterval(()=>{
+    const now=new Date().getTime();
+    const d=valentine-now;
+    const days=Math.floor(d/(1000*60*60*24));
+    cd.innerHTML=`⏳ ${days} days left for our Valentine 💕`;
+  },1000);
+}
+</script>
+
+</body>
+</html>
