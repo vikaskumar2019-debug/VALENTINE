@@ -1,150 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>For V’s BABY ❤️</title>
+<title>BABY ❤️ VIKAS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
-  font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  margin:0;
-  text-align:center;
+margin:0;
+font-family: 'Segoe UI', sans-serif;
+text-align:center;
+color:white;
+background: linear-gradient(180deg,#0f2027,#203a43,#2c5364);
+overflow:hidden;
 }
-.box{
-  background:white;
-  padding:30px;
-  border-radius:18px;
-  width:90%;
-  max-width:420px;
-  box-shadow:0 10px 25px rgba(0,0,0,.2);
+
+.container{
+padding:20px;
+margin-top:30px;
 }
+
+h1{
+font-size:34px;
+letter-spacing:2px;
+}
+
+h2{
+font-weight:normal;
+}
+
 img{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  object-fit:cover;
-  margin-bottom:10px;
+width:260px;
+border-radius:20px;
+border:4px solid white;
+box-shadow:0 0 25px rgba(255,255,255,0.8);
+margin-top:20px;
 }
+
 button{
-  background:#ff4b5c;
-  color:white;
-  border:none;
-  padding:10px 22px;
-  margin:10px;
-  border-radius:25px;
-  font-size:16px;
-  cursor:pointer;
+padding:12px 25px;
+margin:10px;
+border:none;
+border-radius:25px;
+background:#ff4d6d;
+color:white;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
 }
-.no{
-  background:#aaa;
-  position:relative;
+
+button:hover{
+transform:scale(1.1);
+transition:0.3s;
 }
-.small{
-  font-size:14px;
-  color:#666;
+
+.heart{
+position:fixed;
+color:red;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+.snow{
+position:fixed;
+color:white;
+font-size:14px;
+animation:snowfall linear infinite;
+}
+
+@keyframes snowfall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(100vh);}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
-</audio>
+<div class="container" id="main">
 
-<div class="box" id="box">
-  <!-- OPTIONAL PHOTO -->
-  <img src="https://i.imgur.com/8Km9tLL.jpg" alt="V’s BABY">
-  <h2>Hey V’s BABY ❤️</h2>
-  <p>This is A’S baby… and I have something special to ask you 🥹</p>
-  <button onclick="next()">Continue 💌</button>
+<h1>👑 BABY & VIKAS 👑</h1>
+<h2>Somewhere in London… under falling snow ❄️</h2>
+
+<img src="IMG_5011.jpeg" alt="BABY & VIKAS">
+
+<h3>Princess BABY… are you ready? 😌</h3>
+
+<button onclick="nextQ()">Start The Love Test ❤️</button>
+
 </div>
 
 <script>
+
 let step=0;
 
-function next(){
-  const b=document.getElementById("box");
-  step++;
+function nextQ(){
+step++;
+const main=document.getElementById("main");
 
-  if(step===1){
-    b.innerHTML=`<h2>Question 1 💭</h2>
-    <p>Do you know you’re the best thing that ever happened to A’S baby?</p>
-    <button onclick="next()">Next ❤️</button>`;
-  }
-  else if(step===2){
-    b.innerHTML=`<h2>Question 2 😊</h2>
-    <p>Does your heart smile whenever you think about us?</p>
-    <button onclick="next()">Next 💕</button>`;
-  }
-  else if(step===3){
-    b.innerHTML=`<h2>Question 3 💖</h2>
-    <p>Do you feel loved, safe and happy with A’S baby?</p>
-    <button onclick="next()">Next 😌</button>`;
-  }
-  else if(step===4){
-    document.getElementById("music").play();
-    b.innerHTML=`<h2>One Last Question ❤️</h2>
-    <p class="small" id="countdown"></p>
-    <h3>Will you be my Valentine?</h3>
-    <button onclick="yes()">YES 😍</button>
-    <button class="no" onmouseover="run(this)" onclick="no()">NO 🙈</button>`;
-    startCountdown();
-  }
+if(step==1){
+main.innerHTML=`
+<h2>Question 1 💭</h2>
+<p>Who is the most beautiful girl in this universe?</p>
+<button onclick="nextQ()">BABY 👑</button>
+<button onclick="nextQ()">Obviously BABY 😌</button>
+`;
 }
 
-function run(btn){
-  btn.style.left=Math.random()*120-60+"px";
-  btn.style.top=Math.random()*60-30+"px";
+else if(step==2){
+main.innerHTML=`
+<h2>Question 2 💕</h2>
+<p>Who makes VIKAS the happiest man alive?</p>
+<button onclick="nextQ()">BABY ❤️</button>
+<button onclick="nextQ()">Only BABY 🥰</button>
+`;
 }
 
-function no(){
-  const b=document.getElementById("box");
-  b.innerHTML=`<h2>⏳ Processing…</h2><p>Please wait</p>`;
-  setTimeout(()=>{
-    b.innerHTML=`<h2>⚠️ ERROR ❌</h2>
-    <p><b>Action not allowed.</b></p>
-    <p>You are already<br><strong>A’S baby’s Valentine 💖</strong></p>
-    <p>No escape 😌🔒</p>`;
-  },2000);
+else if(step==3){
+main.innerHTML=`
+<h2>Question 3 ✨</h2>
+<p>If love had a face… whose would it be?</p>
+<button onclick="nextQ()">BABY 😍</button>
+<button onclick="nextQ()">Still BABY 💖</button>
+`;
 }
 
-function yes(){
-  document.getElementById("box").innerHTML=`
-    <h2>YAYYYY 💖🥹</h2>
-    <p>V’s BABY just made A’S baby the happiest person alive.</p>
-
-    <h3>💌 A Secret Letter 💌</h3>
-    <p>
-      No matter where life takes us,<br>
-      I choose you — every single day.<br>
-      You are my safe place, my madness,<br>
-      my forever.<br><br>
-      Love,<br>
-      A’S baby ❤️
-    </p>
-
-    <p class="small">Scan this if you ever miss me 😌</p>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ForeverYours">
-  `;
-}
-
-function startCountdown(){
-  const cd=document.getElementById("countdown");
-  const valentine=new Date("Feb 14, 2026 00:00:00").getTime();
-  setInterval(()=>{
-    const now=new Date().getTime();
-    const d=valentine-now;
-    const days=Math.floor(d/(1000*60*60*24));
-    cd.innerHTML=`⏳ ${days} days left for our Valentine 💕`;
-  },1000);
-}
-</script>
-
-</body>
-</html>
+else if(step==4){
+main.innerHTML=`
+<h2>Final Question 💍</h2>
+<p>Under this snowy London sky…</p>
+<h3>BABY, will you be VIKAS's forever? ♾️
